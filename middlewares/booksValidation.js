@@ -4,7 +4,7 @@ const bookPostSchema = Joi.object({
   title: Joi.string().min(1).max(100).required(),
   author: Joi.string().min(1).required(),
   image: Joi.string().min(10).required(),
-  plot: Joi.string().min(1).max(1000).required(),
+  plot: Joi.string().min(1).max(10000).required(),
   isRead: Joi.boolean(),
 });
 
@@ -12,7 +12,7 @@ const bookUpdateSchema = Joi.object({
   title: Joi.string().min(1).max(100),
   author: Joi.string().min(1),
   image: Joi.string().min(10),
-  plot: Joi.string().min(1).max(1000),
+  plot: Joi.string().min(1).max(10000),
   isRead: Joi.boolean(),
 });
 
@@ -25,7 +25,6 @@ const postValidation = (req, res, next) => {
 
   if (error) {
     const field = error.details[0].context.key;
-
     res
       .status(400)
       .json({ message: `missing required ${field} field or not valid` });

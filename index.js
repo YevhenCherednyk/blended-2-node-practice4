@@ -5,6 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const boorsRouter = require("./router/booksRouter");
+const authRouter = require("./router/usersRouter");
 
 const startServer = () => {
   const app = express();
@@ -14,7 +15,9 @@ const startServer = () => {
   app.use(morgan("tiny"));
   app.use(cors());
   app.use(express.json());
+  app.use(express.static("public"));
 
+  app.use("/api/users", authRouter);
   app.use("/api/books", boorsRouter);
 
   try {

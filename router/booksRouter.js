@@ -1,5 +1,7 @@
 const express = require("express");
 
+const auth = require("../middlewares/auth");
+
 const {
   getBooks,
   addBook,
@@ -16,16 +18,16 @@ const {
 
 const booksRouter = express.Router();
 
-booksRouter.get("/", getBooks);
+booksRouter.get("/", auth, getBooks);
 
-booksRouter.get("/:bookId", getBookById);
+booksRouter.get("/:bookId", auth, getBookById);
 
-booksRouter.post("/", postValidation, addBook);
+booksRouter.post("/", auth, postValidation, addBook);
 
-booksRouter.delete("/:bookId", removeBook);
+booksRouter.delete("/:bookId", auth, removeBook);
 
-booksRouter.put("/:bookId", putValidation, updateBookById);
+booksRouter.put("/:bookId", auth, putValidation, updateBookById);
 
-booksRouter.patch("/:bookId/isRead", patchValidation, upadateReadStatus);
+booksRouter.patch("/:bookId/isRead", auth, patchValidation, upadateReadStatus);
 
 module.exports = booksRouter;
