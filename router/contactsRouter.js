@@ -2,7 +2,7 @@ const express = require("express");
 
 const auth = require("../middlewares/auth");
 
-const upload = require("../middlewares/upload");
+// const upload = require("../middlewares/upload");
 
 const {
   getContacts,
@@ -13,24 +13,10 @@ const { contactValidation } = require("../middlewares/contactsValidation");
 
 const contactsRouter = express.Router();
 
-// contactsRouter.get("/", auth, getBooks);
+contactsRouter.get("/", auth, getContacts);
 
-contactsRouter.get("/", getContacts);
+contactsRouter.post("/", auth, contactValidation, addContact);
 
-// booksRouter.get("/:bookId", auth, getBookById);
-
-// booksRouter.get("/:bookId", getBookById);
-
-// contactsRouter.post("/", auth, postValidation, addBook);
-
-contactsRouter.post("/", contactValidation, addContact);
-
-// booksRouter.delete("/:bookId", auth, removeBook);
-
-contactsRouter.delete("/:contactId", removeContact);
-
-// booksRouter.put("/:bookId", auth, putValidation, updateBookById);
-
-// booksRouter.patch("/:bookId/isRead", auth, patchValidation, upadateReadStatus);
+contactsRouter.delete("/:contactId", auth, removeContact);
 
 module.exports = contactsRouter;

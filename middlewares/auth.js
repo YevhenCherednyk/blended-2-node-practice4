@@ -8,7 +8,10 @@ const auth = async (req, res, next) => {
   const { authorization = "" } = req.headers;
   const [bearer, token] = authorization.split(" ");
 
+  console.log(token);
+
   if (bearer !== "Bearer") {
+    console.log("1");
     res.status(401).json({ message: "Not authorized" });
     return;
   }
@@ -18,6 +21,7 @@ const auth = async (req, res, next) => {
     const user = await User.findById(id);
 
     if (!user || !user.token || user.token !== token) {
+      console.log("2");
       res.status(401).json({ message: "Not authorized" });
       return;
     }
@@ -25,6 +29,7 @@ const auth = async (req, res, next) => {
     req.user = user;
     next();
   } catch {
+    console.log("3");
     res.status(401).json({ message: "Not authorized" });
     return;
   }

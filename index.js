@@ -5,7 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const contactsRouter = require("./router/contactsRouter");
-// const authRouter = require("./router/usersRouter");
+const authRouter = require("./router/usersRouter");
 
 const startServer = () => {
   const app = express();
@@ -17,7 +17,7 @@ const startServer = () => {
   app.use(express.json());
   app.use(express.static("public"));
 
-  // app.use("/api/users", authRouter);
+  app.use("/api/users", authRouter);
   app.use("/api/contacts", contactsRouter);
 
   try {
